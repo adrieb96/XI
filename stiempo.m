@@ -1,4 +1,4 @@
-ydet=ifft(fftshift(Ydef));
+ydet=ifft(fftshift(Ydef));	%Transformada inversa
 ydet=real(ydet);
 
 plot(t,ydet);

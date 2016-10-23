@@ -1,13 +1,17 @@
-xdet1=A*cos(2*pi*f1*t);
-xdet2=A*cos(2*pi*f2*t);
-xdet3=A*cos(2*pi*f3*t);
+[xdet,fs]=audioread('ejemplo_XI.wav');
+Ts=1/fs;	%Perido de muestreo
+xdet=xdet';	%Vector columna a vector fila
+L=length(xdet);
+T=L/fs
+t=Ts:Ts:T;
+subplot(211)
+plot(t,xdet)
+axis([0 2 -1 1]);
 
-xdets=xdet1+xdet2+xdet3;
+Xdef=fftshift(fft(xdet));
+f=-fs/2+fs/L:fs/L:fs/2;
+subplot(212)
+plot(f,abs(Xdef)/max(abs(Xdef)));
+axis([-1e4 1e4 0 1.1])
 
-plot(t,xdets);
-axis([0 0.1 -0.5 0.5]);
-xlabel('Tiempo(s)');
-ylabel('Amplitud');
-title('Senoidal');
-
-sound(xdets,fs);
+sound(xdet,fs);
